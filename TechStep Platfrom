@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechStep Platform - Interactive Blueprint</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony -->
+    <!-- Application Structure Plan: The SPA is designed as an interactive dashboard to explore the TechStep blueprint. A sticky top navigation allows users to jump to key sections: Tech Stack, Features, Setup, and Security Rules. This structure was chosen to transform the static markdown file into a more engaging and explorable format. Instead of a long scroll, users can navigate thematically. Key interactions include an interactive database schema diagram, collapsible setup steps, and organized code blocks. This design prioritizes discoverability and comprehension over a linear read. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Tech Stack -> Goal: Inform -> Viz: Icon cards (HTML/CSS) -> Interaction: Hover effects -> Justification: Visually appealing and quick to scan the technologies. -> Library/Method: Tailwind CSS.
+        - Report Info: Features -> Goal: Inform -> Viz: Grid of cards -> Interaction: Static -> Justification: Clearly lists the platform's capabilities. -> Library/Method: Tailwind CSS.
+        - Report Info: Setup Instructions -> Goal: Organize -> Viz: Accordion/Collapsible list -> Interaction: Click to expand/collapse setup steps. -> Justification: Organizes a long list of instructions into manageable, thematic chunks. -> Library/Method: Vanilla JS.
+        - Report Info: Firebase Security Rules -> Goal: Organize/Inform -> Viz: Collapsible Code Block -> Interaction: Click to expand/collapse -> Justification: Makes a large code block easier to navigate without overwhelming the user. -> Library/Method: Vanilla JS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #1e293b; /* slate-800 */
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #3b82f6; /* blue-600 */
+            border-bottom-color: #3b82f6;
+        }
+        .accordion-content {
+            display: none;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .accordion-button.active .accordion-arrow {
+            transform: rotate(180deg);
+        }
+        pre {
+            background-color: #1e293b; /* slate-800 */
+            color: #e2e8f0; /* slate-200 */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .token-keyword { color: #f97583; }
+        .token-string { color: #a5d6ff; }
+        .token-comment { color: #6a737d; }
+        .token-function { color: #b392f0; }
+        .token-punctuation { color: #d1d5da; }
+        .token-operator { color: #f97583; }
+        .token-boolean { color: #56b6c2; }
+    </style>
+</head>
+<body class="bg-slate-50">
+
+    <header class="bg-white/90 backdrop-blur-lg shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-slate-800">TechStep Blueprint</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#tech-stack" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 border-b-2 border-transparent">Tech Stack</a>
+                        <a href="#features" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 border-b-2 border-transparent">Features</a>
+                        <a href="#setup" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 border-b-2 border-transparent">Setup Guide</a>
+                        <a href="#security" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-700 border-b-2 border-transparent">Security</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <select id="mobile-nav" class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5">
+                        <option value="#tech-stack">Tech Stack</option>
+                        <option value="#features">Features</option>
+                        <option value="#setup">Setup Guide</option>
+                        <option value="#security">Security</option>
+                    </select>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+
+        <section id="tech-stack" class="py-12 md:py-20 scroll-mt-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Core Technology Stack</h2>
+                <p class="mt-3 max-w-2xl mx-auto text-lg text-gray-600">The TechStep platform is built on a modern, scalable, and developer-friendly stack designed for rapid MVP deployment and long-term growth. Each component is chosen for its robustness and rich ecosystem.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-lg font-semibold mb-2 text-blue-600">Frontend: Next.js</h3>
+                    <p class="text-gray-600">Excellent for SEO, robust routing, and a seamless developer experience. Ideal for both marketing pages and the core application dashboard.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-lg font-semibold mb-2 text-blue-600">Styling: Tailwind CSS</h3>
+                    <p class="text-gray-600">A utility-first CSS framework that allows for rapid UI development and ensures a consistent, responsive design system.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-lg font-semibold mb-2 text-blue-600">Backend: Firebase</h3>
+                    <p class="text-gray-600">A comprehensive BaaS with Authentication, Firestore DB, Storage, and Serverless Functions for a fully-managed, scalable backend.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-lg font-semibold mb-2 text-blue-600">Payments: Stripe</h3>
+                    <p class="text-gray-600">The industry-standard for payments, providing robust APIs for one-time purchases, subscriptions, and B2B invoicing.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="py-12 md:py-20 scroll-mt-16 bg-white rounded-lg shadow-lg">
+            <div class="text-center mb-12 px-6">
+                <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Platform Features</h2>
+                <p class="mt-3 max-w-2xl mx-auto text-lg text-gray-600">A high-level overview of the core functionalities built into the TechStep Platform, catering to students, administrators, and B2B clients.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6">
+                <div class="p-6 bg-slate-50 rounded-lg">
+                    <h3 class="font-semibold text-slate-800">👤 User Roles & Auth</h3>
+                    <p class="text-gray-600 mt-1 text-sm">Role-based access for Students, B2B Admins, and Platform Admins with secure login.</p>
+                </div>
+                <div class="p-6 bg-slate-50 rounded-lg">
+                    <h3 class="font-semibold text-slate-800">📊 Student Dashboard</h3>
+                    <p class="text-gray-600 mt-1 text-sm">Track course progress and view earned certificates in a personalized dashboard.</p>
+                </div>
+                 <div class="p-6 bg-slate-50 rounded-lg">
+                    <h3 class="font-semibold text-slate-800">🖥️ Course Pages</h3>
+                    <p class="text-gray-600 mt-1 text-sm">Interactive modules with an integrated video player and quiz engine.</p>
+                </div>
+                 <div class="p-6 bg-slate-50 rounded-lg">
+                    <h3 class="font-semibold text-slate-800">⚙️ Admin Dashboard</h3>
+                    <p class="text-gray-600 mt-1 text-sm">Manage courses, users, B2B licenses, and view platform-wide data.</p>
+                </div>
+                <div class="p-6 bg-slate-50 rounded-lg">
+                    <h3 class="font-semibold text-slate-800">💳 Stripe Payments</h3>
+                    <p class="text-gray-600 mt-1 text-sm">Support for one-time and subscription payments with robust webhook handling.</p>
+                </div>
+                 <div class="p-6 bg-slate-50 rounded-lg">
+                    <h3 class="font-semibold text-slate-800">📱 Responsive Design</h3>
+                    <p class="text-gray-600 mt-1 text-sm">Fully optimized experience across desktop, tablet, and mobile devices.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="setup" class="py-12 md:py-20 scroll-mt-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Setup & Deployment Guide</h2>
+                <p class="mt-3 max-w-2xl mx-auto text-lg text-gray-600">Follow these steps to initialize the project, configure services, and run the application locally. Click each step to expand the details.</p>
+            </div>
+            <div id="accordion-container" class="space-y-4 max-w-4xl mx-auto"></div>
+        </section>
+
+        <section id="security" class="py-12 md:py-20 scroll-mt-16">
+             <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Firestore Security Rules</h2>
+                <p class="mt-3 max-w-2xl mx-auto text-lg text-gray-600">These rules define who can access and modify data in the Firestore database, ensuring data integrity and security based on user authentication and roles.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md max-w-4xl mx-auto">
+                <button id="security-rules-button" class="accordion-button w-full text-left p-4 flex justify-between items-center bg-slate-100 hover:bg-slate-200 focus:outline-none rounded-t-lg">
+                    <h3 class="font-semibold text-lg text-slate-800">View/Hide Security Rules</h3>
+                    <span class="accordion-arrow transform transition-transform text-blue-600 text-xl">▼</span>
+                </button>
+                <div id="security-rules-content" class="accordion-content">
+                    <pre id="firestore-rules-code"></pre>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="bg-white mt-16">
+        <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+            <p>&copy; 2025 TechStep Platform. An Interactive Blueprint.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const setupSteps = [
+                {
+                    title: 'Step 1: Project Initialization',
+                    content: `
+                        <p class="mb-2">Create a new Next.js application using the CLI:</p>
+                        <pre><code>npx create-next-app techstep-platform --ts --eslint --tailwind --app --src-dir --import-alias "@/*"
+cd techstep-platform</code></pre>
+                        <p class="mt-4 mb-2">Install required dependencies:</p>
+                        <pre><code>npm install firebase stripe @stripe/stripe-js</code></pre>
+                        <p class="mt-4 mb-2">Initialize and add Shadcn/ui components (optional but recommended):</p>
+                        <pre><code>npx shadcn-ui@latest init
+npx shadcn-ui@latest add button card input label ...</code></pre>
+                    `
+                },
+                {
+                    title: 'Step 2: Firebase Project Setup',
+                    content: `
+                        <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                            <li>Go to the <a href="https://console.firebase.google.com/" target="_blank" class="text-blue-600 hover:underline">Firebase Console</a> and create a new project.</li>
+                            <li><strong>Enable Services:</strong> Go to "Build" and enable Authentication (Email/Password), Firestore Database (production mode), and Storage.</li>
+                            <li><strong>Get Config:</strong> In Project Settings, add a new Web App and copy the <code>firebaseConfig</code> object for your environment variables.</li>
+                        </ol>
+                    `
+                },
+                {
+                    title: 'Step 3: Stripe Account Setup',
+                    content: `
+                        <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                            <li>Go to the <a href="https://dashboard.stripe.com/" target="_blank" class="text-blue-600 hover:underline">Stripe Dashboard</a> and create an account.</li>
+                            <li><strong>Get API Keys:</strong> In the "Developers" section, find your Publishable and Secret keys.</li>
+                            <li><strong>Configure Webhooks:</strong> Add a webhook endpoint for events like <code>checkout.session.completed</code>. For local development, use the Stripe CLI to forward events.</li>
+                        </ol>
+                    `
+                },
+                {
+                    title: 'Step 4: Environment Variables',
+                    content: `
+                        <p class="mb-2">Create a <code>.env.local</code> file in your project root and add your Firebase and Stripe keys:</p>
+                        <pre><code># Firebase Configuration
+NEXT_PUBLIC_FIREBASE_API_KEY="YOUR_API_KEY"
+# ... (all other Firebase config keys)
+
+# Stripe Configuration
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="pk_test_..."
+STRIPE_SECRET_KEY="sk_test_..."
+STRIPE_WEBHOOK_SECRET="whsec_..."</code></pre>
+                    `
+                },
+                {
+                    title: 'Step 5: Run the Application',
+                    content: `
+                        <p class="mb-2">After completing the setup, run the development server:</p>
+                        <pre><code>npm run dev</code></pre>
+                        <p class="mt-4">The application will be accessible at <a href="http://localhost:3000" target="_blank" class="text-blue-600 hover:underline">http://localhost:3000</a>.</p>
+                    `
+                }
+            ];
+
+            const accordionContainer = document.getElementById('accordion-container');
+            setupSteps.forEach((step, index) => {
+                const item = document.createElement('div');
+                item.className = 'bg-white rounded-lg shadow-md';
+                item.innerHTML = `
+                    <button class="accordion-button w-full text-left p-4 flex justify-between items-center bg-slate-50 hover:bg-slate-100 focus:outline-none rounded-t-lg">
+                        <h3 class="font-semibold text-lg text-slate-800">${step.title}</h3>
+                        <span class="accordion-arrow transform transition-transform text-blue-600 text-xl">▼</span>
+                    </button>
+                    <div class="accordion-content p-4 border-t border-gray-200">
+                        ${step.content}
+                    </div>
+                `;
+                accordionContainer.appendChild(item);
+            });
+            
+            function handleAccordionClick(event) {
+                const button = event.currentTarget;
+                const content = button.nextElementSibling;
+                button.classList.toggle('active');
+
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                    content.style.paddingTop = '0';
+                    content.style.paddingBottom = '0';
+                } else {
+                    content.style.display = 'block'; // Make sure it's visible before calculating height
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    content.style.paddingTop = '1rem';
+                    content.style.paddingBottom = '1rem';
+                }
+            }
+            
+            accordionContainer.querySelectorAll('.accordion-button').forEach(button => {
+                button.addEventListener('click', handleAccordionClick);
+            });
+            
+            const securityButton = document.getElementById('security-rules-button');
+            securityButton.addEventListener('click', handleAccordionClick);
+
+
+            // Navigation highlighting
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const mobileNav = document.getElementById('mobile-nav');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href').substring(1) === id);
+                        });
+                        mobileNav.value = `#${id}`;
+                    }
+                });
+            }, { rootMargin: "-30% 0px -70% 0px" });
+
+            sections.forEach(section => observer.observe(section));
+            
+            mobileNav.addEventListener('change', (e) => {
+                document.querySelector(e.target.value).scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.querySelector(link.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            // Firestore Rules with basic syntax highlighting
+            const firestoreRules = `
+rules_version = <span class="token-string">'2'</span>;
+<span class="token-keyword">service</span> <span class="token-function">cloud.firestore</span> {
+  <span class="token-function">match</span> /databases/{database}/documents {
+    <span class="token-comment">// Users can read/update their own profile</span>
+    <span class="token-function">match</span> /users/{userId} {
+      <span class="token-keyword">allow</span> read, update: <span class="token-keyword">if</span> request.auth != <span class="token-boolean">null</span> && request.auth.uid == userId;
+      <span class="token-keyword">allow</span> create: <span class="token-keyword">if</span> request.auth != <span class="token-boolean">null</span>;
+      <span class="token-keyword">allow</span> read, update, delete: <span class="token-keyword">if</span> get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == <span class="token-string">'platform_admin'</span>;
+    }
+
+    <span class="token-comment">// Anyone can read published courses</span>
+    <span class="token-function">match</span> /courses/{courseId} {
+      <span class="token-keyword">allow</span> read: <span class="token-keyword">if</span> resource.data.isPublished == <span class="token-boolean">true</span>;
+      <span class="token-keyword">allow</span> create, update, delete: <span class="token-keyword">if</span> get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == <span class="token-string">'platform_admin'</span>;
+      
+      <span class="token-function">match</span> /modules/{moduleId} {
+        <span class="token-keyword">allow</span> read: <span class="token-keyword">if</span> get(/databases/$(database)/documents/courses/$(courseId)).data.isPublished == <span class="token-boolean">true</span>;
+      }
+    }
+    
+    <span class="token-comment">// Users can read/write their own progress</span>
+    <span class="token-function">match</span> /userProgress/{progressId} {
+      <span class="token-keyword">allow</span> read, write: <span class="token-keyword">if</span> request.auth.uid == resource.data.userId;
+    }
+    <span class="token-comment">// ... and so on for other collections</span>
+  }
+}
+`;
+            document.getElementById('firestore-rules-code').innerHTML = firestoreRules;
+        });
+    </script>
+</body>
+</html>
+
